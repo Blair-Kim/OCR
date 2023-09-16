@@ -1,0 +1,240 @@
+❤ Github 클론 
+
+1. Git 다운로드
+
+2. 클론하고자 하는 github 주소 복사
+
+3. VS Code -> ctrl + shift + p  -> Git:clone 이 후, 2번의 주소 복사
+
+4. 클론 후 시작
+
+❤ Github 연동
+
+1. 해당 폴더 깃 초기화
+- git init .
+
+2. 로컬 저장소의 브랜치를 master -> main 으로 변경 (이전 버전의 잔재...github의 메인 브랜치가 원래 master였음)
+- git branch -M main
+
+3. 이 후, 연결하고자 하는 원격 저장소(repository) 연결
+- git remote add origin [원격저장소 주소]
+
+4. 연결 되었는지 확인 
+- git remote -v
+
+5. 해당 저장소의 메인 브랜치 pull 
+- git pull origin main
+
+6. 작업 
+
+
+-----------------------------------------------------------------------------------------------
+Mysql 연동
+
+pip install mysqlclient
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # 사용할 데이터베이스 엔진
+        'NAME': 'django_pj', # 데이터베이스 이름 
+        'USER': 'root', # 접속할 Database 계정 아이디 ex) root
+        'PASSWORD': '1234',  # 접속할 Database 계정 비밀번호 ex) 1234
+        'HOST': 'localhost',   # host는 로컬 환경에서 동작한다면 ex) localhost
+        'PORT': '3306', # 설치시 설정한 port 번호를 입력한다. ex) 3306
+    }
+}
+
+
+ORACLE 연동
+SQL DEVELOPER
+설치할 때,
+ORCL / 비밀번호 (USER/1234)
+
+cmd
+https://coding-factory.tistory.com/28
+1. sqlplus "/as sysdba"
+2. create user c##계정명 identified by 비밀번호; //계정 생성
+3. grant connect, resource, dba to c##계정 이름; //계정 권한 부여
+
+SID 확인 방법
+select instance from v$thread;
+
+SQL developer 에서 새접속
+-> SID -> ORCL로 바꾸고, 만든 계정으로 접속
+
+---------------------------------
+mssql 연동
+pip install django-mssql-backend
+pip install django==3.0.6
+
+DATABASES = {
+   'default': {
+       'ENGINE': 'sql_server.pyodbc',
+       'HOST': 'DESKTOP-PNKT4B1',
+       'NAME': 'Django',
+       'USER': 'Django',
+       'PASSWORD': '1234',
+    #    'PORT' : '1433',
+       'driver': 'SQL Server',
+       'OPTIONS': {
+           'driver': 'ODBC Driver 13 for SQL Server',
+        #    'host_is_server': True,
+        #    'unicode_results': True,
+       }
+   }
+}
+
+
+(venv) PS C:\Users\powergen\Desktop\django_PJ> pip list
+Package              Version
+-------------------- -------
+asgiref              3.7.2  
+Django               3.0.6  
+django-mssql-backend 2.8.1  
+pip                  23.2.1 
+pyodbc               4.0.39 
+pytz                 2023.3 
+setuptools           65.5.0 
+sqlparse             0.4.4  
+
+-----------------------------------------------------------------------------
+
+--------------------------------------------------------
+https://velog.io/@rjsekaehdhkw/Visual-Studio-Code%EC%97%90%EC%84%9C-Django-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%EB%B3%B8-%EC%85%8B%ED%8C%85-%ED%95%98%EB%8A%94-%EB%B2%95
+
+1. VS Code 실행
+2. Python, Django 확장프로그램 설치
+3. venv 가상환경 다운- ( python -m venv venv )
+4. PowerShell 관리자 권한 실행 - ( Set-ExecutionPolicy Unrestricted , Y ) 
+5. venv 실행 ( venv/Scripts/activate ) - 윈도우 기준 / 나갈 땐 ( deactivate )
+6. 패키지 설치 
+-> pip install django
+7. DRF ( djangorestframework )
+-> pip install djangorestframework 
+
+8. config 라는 Django 프로젝트 생성 ( . 빼면 안됌!!)
+-> django-admin startproject config .
+
+9. 장고를 실행
+-> python manage.py runserver / 끄기 -> cls
+
+* Django 프로젝트 구조
+1) manage.py : 장고의 다양한 명령어를 실행하기 위한 파일. 변경 X
+2) db.sqlite3 : 가벼운 로컬 DB파일. 비어있음
+3) config 폴더 : 프로젝트의 설정 파일과 웹 서버 실행을 위한 파일들이 들어 있다. 중요!
+- __init__.py : 파이썬 2.X 버전과 호환을 위해 만들어진 파일. 여러 폴더에 생성됌. 지워도 무관
+- settings.py : 프로젝트에 다양한 설정에 관한 내용이 들어있는 파일
+- urls.py : 하나의 프로젝트에는 여러개의 urls 파일이 만들어지고 config 안의 urls파일은 최초로 탐색되는 기준 urls 파일 기준 urls파일은
+settings 파일에서 변경 가능
+- asgi.py wsgi.py : 웹서버에 배포할 때 설정파일들을 연결해 주는 파이썬 파일
+
+* 장고 -> App 단위로 개발 - 어느 정도의 관련이 있는 단위로 묶어서 개발 / 회원 app / 게시판 app / 댓글 app
+app 구조
+1) admin.py : 관리자가 접속하면 보이는 화면, 내장돼어 있음 -> 차 후 관리자용 설계 할 때 고려
+2) apps.py : 앱을 프로젝트에 등록하는 기능을 함 -> 수정 하지 말 것
+3) models.py : 장고 DB 관련된 파일 / DB 사용 계획,정의,연결 등의 다양한 설정들을 함
+4) tests.py : 테스트를 위한 파이썬 파일
+5) views.py : 실질적으로 파이썬 코드가 실행이 되는 부분. 클래스형,함수형 모두 가능 -> 앱 개발때 실질적으로 사용
+6) urls.py : 폴더 안에 없지만, 추가로 생성해서 사용해야 하는 파일
+7) migrations/ : 파이썬 모듈로 작동하는 폴더, 데이터베이스 스키마 관련 -> 데이터베이스 연동할 때 사용
+
+10. 앱 추가
+- 터미널에 python manage.py startapp [앱이름] 입력 (ex.  python manage.py startapp board )
+
+--------------------------------------------------------------------------------------------------
+* MVT 구조
+1) Model - 데이터를 담는 양식
+2) Template - 사용자에게 보여주는 화면 ( 틀 )
+3) View - 실질적인 작업을 수행하는 View ( 내용 )
+
+사용자가 특정 url 로 접속 (서버에게 데이터 요청) -> config/urls.py 파일에서 url 비교 후, 일치하는 views.py 실행
+views.py 파일에서 함수 실행 후 사용자에게 template(html) 반환
+
+1. 프로젝트에 templates 라는 폴더를 생성하고 해당 폴더에 test.html 생성
+
+2. config/settings.py 파일에서 TEMPLATES 부분에 DIRS를 다음과 같이 생성 -> 'DIRS' : [BASE_DIR/'templates']
+
+3. config/urls.py 에서 path 설정 ( ex. path('abc/', board.views.abc)  )   후 , import board.views
+
+4. [앱폴더]/views.py 파일 함수의 return 부분을 수정 -> 
+      def abc(request) :
+             return render(request, "abc.html")
+
+5. 디장고 관리자 계정 생성하기
+- python manage.py createsuperuser  를 입력한다.
+
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+</head>
+<style type="text/css">
+        thead {
+            background-color:#cecece;
+        }
+
+        .content {
+            max-width:500px;
+            margin: auto;
+            padding:10px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .board {
+            width: 100%
+        }
+
+        .even_bgcolor {
+            background-color:#e8efff;
+        }
+    </style>
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}}</h2>
+        </div>
+        <div style="text-align:right">
+            <a href="#">글쓰기</a>
+            <!-- <a href="{% url 'board:write' %}">글쓰기</a> -->
+        </div>
+
+        <table class="board">
+            <thead>
+                <tr class="header">
+                    <th style="width:20%">1</th>
+                    <th style="width:40%">2</th>
+                    <th style="width:60%">3</th>
+                    <th style="width:80%">4</th>
+                    <th style="width:100%">5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if board_list %}
+                {% for data in board_list %}
+                <tr class="{% if forloop.counter|divisibleby:2 %}even_bgcolor{% endif %}">
+                    <td style="text-align:center;">{{ forloop.counter }}</td>
+                    <td>
+                        <a href="#">
+                            상세보기
+                        </a>
+                    </td>
+                    <td>{{ data.user_email}}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>작성된 게시글이 없습니다.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
