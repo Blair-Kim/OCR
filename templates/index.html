@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+</head>
+<style type="text/css">
+        thead {
+            background-color:#cecece;
+        }
+
+        .content {
+            max-width:1000px;
+            margin: auto;
+            padding:10px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header2 {
+            text-align: center;
+            background-color:skyblue;
+        }
+
+        .board {
+            width: 100%
+        }
+
+        .even_bgcolor {
+            background-color:#e8efff;
+        }
+    </style>
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}</h2>
+        </div>
+        <div style="text-align:left">
+            <button>
+                <a href="{% url 'main' %}">로그인화면</a>
+            </button>
+        </div>
+        <div style="text-align:right">
+            <button>
+                <!-- <a href="#">사용자 추가</a> -->
+                <a href="{% url 'board_write' %}">사용자 추가</a>
+            </button>
+        </div>
+    <table class="board">
+        <thead>
+            <tr class="header2">
+                <th style="width:5%">목록</th>
+                <th style="width:20%">User ID</th>
+                <th style="width:20%">User Name</th>
+                <th style="width:25%">E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if 사용자목록 %}
+            {% for users in 사용자목록 %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}even_bgcolor{% endif %}">
+                <td style="text-align:center;">{{ forloop.counter }}</td>
+                <td style="text-align:center;">{{ users.user_id}}</td>
+                <td style="text-align:center;">{{ users.user_name}}</td>
+                <td style="text-align:center;">{{ users.user_email}}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>작성된 게시글이 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </div>
+</body>
+</html>

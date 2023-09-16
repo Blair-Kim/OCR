@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+        .content {
+            max-width:500px;
+            margin: auto;
+            padding:10px;
+        }
+
+		.board_for_read {
+			width: 100%;
+			background-color:#f1f1f1;
+		}
+
+		#title {
+			height: 32px;
+			width: 100%;
+			border-radius: 0.5em;
+			border: none;
+			font-family: inherit;
+			font-size: inherit;
+		}
+
+        .header {
+            text-align: center;
+        }
+
+        textarea {
+			width: 100%;
+            font-family: inherit;
+            font-size: 100%;
+			resize: none;
+			border-radius: 0.5em;
+			padding-block: 10px;
+			border: 0px;
+        }
+
+		.td_title {
+			background-color: #d8d8d8
+		}
+    </style>
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}</h2>
+        </div>
+        <!-- 취소 버튼 누르면 유저 리스트로 -->
+        <div style="text-align:right;padding:10px">
+            <button type="button" onclick="location.href={% url 'board_main' %} ">취소</button>
+		</div>
+
+        <!-- 저장 위한 폼 -->
+		<form action="{% url 'write_board' %}" method="POST">
+		{% csrf_token %}
+		<table class="board_for_read">
+			<tbody>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">ID</td>
+					<td style="padding:20px;">
+						<input type="text" name="user_id" id="title">
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">Password</td>
+					<td style="padding:20px;">
+						<input type="text" name="user_pw" id="title">
+					</td>
+				</tr>
+                <tr>
+					<td class="td_title" style="text-align:center; width:20%;">Username</td>
+					<td style="padding:20px;">
+						<input type="text" name="user_name" id="title">
+					</td>
+				</tr>
+                <tr>
+					<td class="td_title" style="text-align:center; width:20%;">mail</td>
+					<td style="padding:20px;">
+						<input type="text" name="user_email" id="title">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+                <div style="padding: 20px;">
+			<input type="submit" value="저장">
+		</div>
+		</form>
+
+
+    </div>
+</body>
+</html>
