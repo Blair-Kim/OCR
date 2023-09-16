@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 수정</title>
+</head>
+<style type="text/css">
+        .content {
+            max-width:500px;
+            margin: auto;
+            padding:10px;
+        }
+
+		.board_for_read {
+			width: 100%;
+			background-color:#f1f1f1;
+		}
+
+		#title {
+			height: 32px;
+			width: 100%;
+			border-radius: 0.5em;
+			border: none;
+			font-family: inherit;
+			font-size: inherit;
+		}
+
+        .header {
+            text-align: center;
+        }
+
+        textarea {
+			width: 100%;
+            font-family: inherit;
+            font-size: 100%;
+			resize: none;
+			border-radius: 0.5em;
+			padding-block: 10px;
+			border: 0px;
+        }
+
+		.td_title {
+			background-color: #d8d8d8
+		}
+    </style>
+
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}</h2>
+        </div>
+        <!-- 취소 버튼 누르면 유저 리스트로 -->
+        <div style="text-align:right;padding:10px">
+            <button type="button" onclick="cancelEdit();">취소</button>
+            {% comment %} <button type="button" onclick="location.href={% url 'board_main' %} ">취소</button> {% endcomment %}
+		</div>
+
+        <!-- 수정 위한 폼 -->
+		<form method="POST" >
+            {% csrf_token %}
+            <table class="board_for_read">
+                <tbody>
+                    <tr>
+                        <td class="td_title" style="text-align:center; width:20%;">ID</td>
+                        <td style="padding:20px;">
+                            <input type="text" name="user_id" id="title" value="{{user_info.user_id}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_title" style="text-align:center; width:20%;">Password</td>
+                        <td style="padding:20px;">
+                            <input type="text" name="user_pw" id="title" value="{{user_info.user_pw}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_title" style="text-align:center; width:20%;">Username</td>
+                        <td style="padding:20px;">
+                            <input type="text" name="user_name" id="title" value="{{user_info.user_name}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_title" style="text-align:center; width:20%;">Mail</td>
+                        <td style="padding:20px;">
+                            <input type="text" name="user_email" id="title" value="{{user_info.user_email}}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="padding: 20px;">
+                {% comment %} <input type="submit" value="저장" onclick="location.href='/edit/save/{{user_info.pk}}'" > {% endcomment %}
+                <input type="submit" value="저장" onclick="confirm_edit({{user_info.pk}})" >
+            </div>
+        </form>
+
+    </div>
+    <script>
+        function cancelEdit() {
+            if (confirm('수정을 취소하고 돌아가실??')) {
+                window.location.href = '/board';
+                // '확인'을 누른 경우 게시판 메인으로
+            } else {
+                // '취소'를 누른 경우, 페이지를 유지
+            }
+        }
+        function confirm_edit(pk) {
+            alert('수정 완료.');
+        }
+    </script>
+</body>
+</html>

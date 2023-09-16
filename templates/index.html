@@ -38,15 +38,8 @@
             <h2>{{title}}</h2>
         </div>
         <div style="text-align:left">
-            <button>
-                <a href="{% url 'main' %}">로그인화면</a>
-            </button>
-        </div>
-        <div style="text-align:right">
-            <button>
-                <!-- <a href="#">사용자 추가</a> -->
-                <a href="{% url 'board_write' %}">사용자 추가</a>
-            </button>
+            <button type="button" onclick="go_to_main();">로그인 화면으로</button>
+            <button type="button" onclick="go_to_log();">보낸 메일함</button>
         </div>
     <table class="board">
         <thead>
@@ -54,7 +47,8 @@
                 <th style="width:5%">목록</th>
                 <th style="width:20%">User ID</th>
                 <th style="width:20%">User Name</th>
-                <th style="width:25%">E-mail</th>
+                <th style="width:30%">E-mail</th>
+
             </tr>
         </thead>
         <tbody>
@@ -64,15 +58,50 @@
                 <td style="text-align:center;">{{ forloop.counter }}</td>
                 <td style="text-align:center;">{{ users.user_id}}</td>
                 <td style="text-align:center;">{{ users.user_name}}</td>
-                <td style="text-align:center;">{{ users.user_email}}</td>
+                <td style="text-align:center;">{{ users.user_email}}
+                {% comment %} 2가지 방법 모두 가능 {% endcomment %}
+                {% comment %} <button style='float:right' onclick="location.href='{% url 'board_edit' pk=users.id_seq %}'">수정</button><button style='float:right'>삭제</button></td> {% endcomment %}
+                <button style='float:right' onclick="location.href='/email'">메일쓰기</button>
+                <button style='float:right' onclick="confirm_delete({{ users.pk }});">삭제</button>
+                <button style='float:right' onclick="location.href='/edit/{{users.pk}}'">수정</button>
+                
+                </td>
+                
             </tr>
             {% endfor %}
+            
         {% else %}
             <tr>
                 <td>작성된 게시글이 없습니다.</td>
             </tr>
         {% endif %}
         </tbody>
+        
     </div>
+
+    <script>
+        function confirm_delete(pk) {
+            if (confirm('진짜 삭제할꺼야???')) {
+                window.location.href = '/delete/' + pk;
+                
+                // '확인'을 누른 경우 삭제
+            } else {
+                // '취소'를 누른 경우, 삭제 안함
+            }
+        }
+
+        function go_to_main() {
+            if (confirm('로그인으로 돌아갈껴??')) {
+                window.location.href = '/';
+                // '확인'을 누르면 로그인화면으로
+            } else {
+                // '취소'를 누른 경우 지속
+            }
+        }
+
+        function go_to_log() {
+            window.location.href = '/mail_log';
+        }
+    </script>
 </body>
 </html>

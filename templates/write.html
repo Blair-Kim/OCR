@@ -50,7 +50,7 @@
         </div>
         <!-- 취소 버튼 누르면 유저 리스트로 -->
         <div style="text-align:right;padding:10px">
-            <button type="button" onclick="location.href={% url 'board_main' %} ">취소</button>
+            <button type="button" onclick="go_to_main();">취소</button>
 		</div>
 
         <!-- 저장 위한 폼 -->
@@ -91,5 +91,16 @@
 
 
     </div>
+
+	<script>
+        function go_to_main() {
+            if (confirm('회원가입 안할껴??')) {
+                window.location.href = '/';
+                // '확인'을 누르면 로그인화면으로
+            } else {
+                // '취소'를 누른 경우 지속
+            }
+        }
+    </script>
 </body>
 </html>

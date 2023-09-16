@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+</head>
+<style type="text/css">
+        thead {
+            background-color:#cecece;
+        }
+
+        .content {
+            max-width:1000px;
+            margin: auto;
+            padding:10px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header2 {
+            text-align: center;
+            background-color:skyblue;
+        }
+
+        .board {
+            width: 100%
+        }
+
+        .even_bgcolor {
+            background-color:#e8efff;
+        }
+    </style>
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}</h2>
+        </div>
+        <div style="text-align:left">
+            <button type="button" onclick="location.href={% url 'board_main' %}"> 유저 목록</button>
+            
+        </div>
+    <table class="board">
+        <thead>
+            <tr class="header2">
+                <th style="width:5%">목록</th>
+                <th style="width:20%">받는 이</th>
+                <th style="width:20%">제목</th>
+                <th style="width:30%">보낸 시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if 보낸메일 %}
+            {% for mails in 보낸메일 %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}even_bgcolor{% endif %}">
+                <td style="text-align:center;">{{ forloop.counter }}</td>
+                <td style="text-align:center;">{{ mails.mail_to}}</td>
+                <td style="text-align:center;">{{ mails.mail_title}}</td>
+                <td style="text-align:center;">{{ mails.mail_datetime}}</td>
+            </tr>
+            {% endfor %}
+            
+        {% else %}
+            <tr>
+                <td>보낸 메일이 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+        
+    </div>
+
+    <script>
+        function confirm_delete(pk) {
+            if (confirm('진짜 삭제할꺼야???')) {
+                window.location.href = '/delete/' + pk;
+                
+                // '확인'을 누른 경우 삭제
+            } else {
+                // '취소'를 누른 경우, 삭제 안함
+            }
+        }
+
+        function go_to_main() {
+            if (confirm('로그인으로 돌아갈껴??')) {
+                window.location.href = '/';
+                // '확인'을 누르면 로그인화면으로
+            } else {
+                // '취소'를 누른 경우 지속
+            }
+        }
+    </script>
+</body>
+</html>

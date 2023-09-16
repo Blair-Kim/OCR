@@ -18,6 +18,7 @@ CREATE TABLE user_master
 
 -- drop table user_master;
 DESCRIBE user_master;
+DESCRIBE board_post;
 
 CREATE TABLE email_setting
 (
@@ -29,3 +30,8 @@ CREATE TABLE email_setting
      PRIMARY KEY (mail_seq)-- ,
 -- 	 FOREIGN KEY (`sender_user`, `sender_password`) REFERENCES user_master (`user_name`, `user_pw`)
 )ENGINE=INNODB;
+
+insert into board_user_master(user_id,user_pw,user_name,user_email) values('admin',1234,'관리자','bfalcom@naver.com');
+
+select * from board_user_master;
+

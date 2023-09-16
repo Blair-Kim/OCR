@@ -22,6 +22,12 @@ import board.views
 
 app_name = 'board'
 urlpatterns = [
+    #이메일 보내기
+    path('send_email/', board.views.send_email, name='send_email'),
+    #이메일 보내기 페이지
+    path('email/', board.views.send_email, name='board_email'),
+    #보낸 메일함 페이지
+    path('mail_log/', board.views.log_mail, name='board_mail_log'),
     #관리자페이지 연결
     path('admin/', admin.site.urls),
     # 메인페이지 연결(로그인 페이지)
@@ -32,8 +38,12 @@ urlpatterns = [
     path('write/', board.views.write, name='board_write'),
     # 사용자 추가 페이지에서 저장 눌렀을 때,
     path('write/save', board.views.write_board, name='write_board'),
+    # 사용자 수정 페이지로 연결
+    path('edit/<int:pk>', board.views.edit, name='board_edit'),
+    # 사용자 수정 페이지에서 수정 눌렀을 때,
+    path('edit/save/<int:pk>', board.views.edit, name='board_edit_save'),
     # 사용자 삭제
-    # path('board/delete', board.views.delete, name='board_delete')
+    path('delete/<int:pk>', board.views.delete, name='board_delete')
 
     # path('<int:board_id>/', board.views.detail, name='detail'),
 

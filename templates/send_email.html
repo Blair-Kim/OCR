@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+        .content {
+            max-width:500px;
+            margin: auto;
+            padding:10px;
+        }
+
+		.board_for_read {
+			width: 100%;
+			background-color:#f1f1f1;
+		}
+
+		#title {
+			height: 32px;
+			width: 100%;
+			border-radius: 0.5em;
+			border: none;
+			font-family: inherit;
+			font-size: inherit;
+		}
+
+        .header {
+            text-align: center;
+        }
+
+        textarea {
+			width: 100%;
+            font-family: inherit;
+            font-size: 100%;
+			resize: none;
+			border-radius: 0.5em;
+			padding-block: 10px;
+			border: 0px;
+        }
+
+		.td_title {
+			background-color: #d8d8d8
+		}
+    </style>
+<body>
+    <div class="content">
+        <div class="header">
+            <h2>{{title}}</h2>
+        </div>
+        <!-- 취소 버튼 누르면 유저 리스트로 -->
+        <div style="text-align:right;padding:10px">
+            <button type="button" onclick="go_to_main();">취소</button>
+		</div>
+
+        <!-- 저장 위한 폼 -->
+		<form action="{% url 'send_email' %}" method="POST">
+		{% csrf_token %}
+		<table class="board_for_read">
+			<tbody>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">받는 사람</td>
+					<td style="padding:20px;">
+						<input type="text" name="to" id="title">
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">참조</td>
+					<td style="padding:20px;">
+						<input type="text" name="cc" id="title">
+					</td>
+				</tr>
+                <tr>
+					<td class="td_title" style="text-align:center; width:20%;">제목</td>
+					<td style="padding:20px;">
+						<input type="text" name="subject" id="title">
+					</td>
+				</tr>
+                <tr>
+					<td class="td_title" style="text-align:center; width:20%;">본문</td>
+					<td style="padding:20px;">
+						<input type="text" name="body" id="title">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+                <div style="padding: 20px;">
+            <input type="submit" value="전송" onclick="confirm_send()" >
+		</div>
+		</form>
+
+
+    </div>
+
+	<script>
+        function go_to_main() {
+            if (confirm('메일 보내기 취소할껴??')) {
+                window.location.href = '/board';
+                // '확인'을 누르면 로그인화면으로
+            } else {
+                // '취소'를 누른 경우 지속
+            }
+        }
+        function confirm_send() {
+            alert('전송 완료.');
+        }
+    </script>
+</body>
+</html>
