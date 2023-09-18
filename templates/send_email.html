@@ -54,14 +54,14 @@
 		</div>
 
         <!-- 저장 위한 폼 -->
-		<form action="{% url 'send_email' %}" method="POST">
+		<form method="POST">
 		{% csrf_token %}
 		<table class="board_for_read">
 			<tbody>
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">받는 사람</td>
 					<td style="padding:20px;">
-						<input type="text" name="to" id="title">
+						<input type="text" name="to" id="title" value="{{user_info.user_email}}">
 					</td>
 				</tr>
 				<tr>
@@ -85,7 +85,7 @@
 			</tbody>
 		</table>
                 <div style="padding: 20px;">
-            <input type="submit" value="전송" onclick="confirm_send()" >
+            <input type="submit" value="전송" onclick="confirm_send({{user_info.pk}})" >
 		</div>
 		</form>
 
@@ -101,7 +101,7 @@
                 // '취소'를 누른 경우 지속
             }
         }
-        function confirm_send() {
+        function confirm_send(pk) {
             alert('전송 완료.');
         }
     </script>

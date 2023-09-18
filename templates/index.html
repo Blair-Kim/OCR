@@ -61,7 +61,8 @@
                 <td style="text-align:center;">{{ users.user_email}}
                 {% comment %} 2가지 방법 모두 가능 {% endcomment %}
                 {% comment %} <button style='float:right' onclick="location.href='{% url 'board_edit' pk=users.id_seq %}'">수정</button><button style='float:right'>삭제</button></td> {% endcomment %}
-                <button style='float:right' onclick="location.href='/email'">메일쓰기</button>
+                {% comment %} <button style='float:right' onclick="location.href='/email'">메일쓰기</button> {% endcomment %}
+                <button style='float:right' onclick="send_email({{ users.pk }});">메일쓰기</button>
                 <button style='float:right' onclick="confirm_delete({{ users.pk }});">삭제</button>
                 <button style='float:right' onclick="location.href='/edit/{{users.pk}}'">수정</button>
                 
@@ -102,6 +103,12 @@
         function go_to_log() {
             window.location.href = '/mail_log';
         }
+
+        function send_email(pk) {
+                window.location.href = '/email/' + pk;
+                // 메일쓰기
+            }
+        
     </script>
 </body>
 </html>

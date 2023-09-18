@@ -45,12 +45,13 @@ from django.template.loader import render_to_string
 # # ------------------------------------send email 전체 설정------------------------------------
 
 #이메일 보내는 함수
-def send_email(request):
+def send_email(request,pk):
     #현재는 context 쓸모 없음. 하지만 나중엔 context 에 보내는 유저의 정보를 띄울 예정
-    context = {'title':'send_email'}
-
+    user_info = user_master.objects.get(id_seq=pk)
+    
 
     if request.method == 'POST':
+        context = {'user_info':user_info, 'title':'send_email'}
         subject = request.POST['subject']	# 제목
         to = [request.POST['to']]			# 수신할 이메일 주소
         from_email = "bfalcom@naver.com"	# 발신할 이메일 주소
@@ -68,7 +69,8 @@ def send_email(request):
         return HttpResponseRedirect(reverse('board_main'))
         
     else :
-        return render(request, "send_email.html")
+        context = {'user_info':user_info, 'title':'send_email'}
+        return render(request, "send_email.html",context)
     
 #보낸 메일함
 def log_mail(request):

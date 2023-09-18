@@ -22,10 +22,10 @@ import board.views
 
 app_name = 'board'
 urlpatterns = [
-    #이메일 보내기
+    #이메일 보내기 페이지에서 이메일 보냈을 때
     path('send_email/', board.views.send_email, name='send_email'),
     #이메일 보내기 페이지
-    path('email/', board.views.send_email, name='board_email'),
+    path('email/<int:pk>', board.views.send_email, name='board_email'),
     #보낸 메일함 페이지
     path('mail_log/', board.views.log_mail, name='board_mail_log'),
     #관리자페이지 연결
